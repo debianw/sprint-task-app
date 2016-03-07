@@ -28,7 +28,7 @@ AccountsUIWrapper = React.createClass({
 
   render() {
     // Just render a placeholder container that will be filled in
-    return <span ref="container" />;
+    return <span ref="container" className="account pull-right" />;
   }
 
 });

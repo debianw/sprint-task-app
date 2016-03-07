@@ -70,7 +70,7 @@ TaskListing = React.createClass({
     const clsBox = 'done' === key ? 'box complete' : 'box';
 
     return (
-      <div ref={(ref) => this[key] = ref } className="col-xs-6 col-sm-2 droppable">
+      <div ref={(ref) => this[key] = ref } className="col-xs-6 col-sm-6 col-md-6 col-lg-2 droppable">
         <div className={clsBox}>
           <h4>{title}</h4>
           <ul>
@@ -95,8 +95,14 @@ TaskListing = React.createClass({
 
         { this.getListBox("To Do"         , todoTasks         , "todo") }
         { this.getListBox("In Progress"   , inProgressTasks   , "inProgress") }
+
+        <div className="clearfix visible-xs-block visible-sm-block visible-md-block"></div>
+
         { this.getListBox("QA"            , qaTasks           , "qa") }
         { this.getListBox("AT"            , atTasks           , "at") }
+
+        <div className="clearfix visible-xs-block visible-sm-block visible-md-block"></div>
+
         { this.getListBox("Done"          , doneTasks         , "done") }
 
       </div>
