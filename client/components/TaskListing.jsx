@@ -14,18 +14,62 @@ TaskListing = React.createClass({
     qaTasks         : React.PropTypes.array,
     atTasks         : React.PropTypes.array,
     doneTasks       : React.PropTypes.array,
-    deleteTask      : React.PropTypes.func
+    deleteTask      : React.PropTypes.func,
+    changeType      : React.PropTypes.func
   },
 
   /**
    *
    */
 
-  getListBox(title, items) {
+  componentDidMount () {
+    const {changeType} = this.props;
+
+    $(this.todo).droppable({
+      drop: (e, ui) => {
+        const id = $(ui.draggable).data('_id');
+        changeType(id, 'pending');
+      }
+    });
+
+    $(this.inProgress).droppable({
+      drop: (e, ui) => {
+        const id = $(ui.draggable).data('_id');
+        changeType(id, 'in-progress');
+      }
+    });
+
+    $(this.qa).droppable({
+      drop: (e, ui) => {
+        const id = $(ui.draggable).data('_id');
+        changeType(id, 'qa');
+      }
+    });
+
+    $(this.at).droppable({
+      drop: (e, ui) => {
+        const id = $(ui.draggable).data('_id');
+        changeType(id, 'at');
+      }
+    });
+
+    $(this.done).droppable({
+      drop: (e, ui) => {
+        const id = $(ui.draggable).data('_id');
+        changeType(id, 'done');
+      }
+    });
+  },
+
+  /**
+   *
+   */
+
+  getListBox(title, items, key) {
     const { deleteTask } = this.props;
 
     return (
-      <div className="col-xs-6 col-sm-2">
+      <div ref={(ref) => this[key] = ref } className="col-xs-6 col-sm-2 droppable">
         <div className="box">
           <h4>{title}</h4>
           <ul>
@@ -48,11 +92,11 @@ TaskListing = React.createClass({
     return (
       <div className="row tasks">
 
-        { this.getListBox("To Do"         , todoTasks) }
-        { this.getListBox("In Progress"   , inProgressTasks) }
-        { this.getListBox("QA"            , qaTasks) }
-        { this.getListBox("AT"            , atTasks) }
-        { this.getListBox("Done"          , doneTasks) }
+        { this.getListBox("To Do"         , todoTasks         , "todo") }
+        { this.getListBox("In Progress"   , inProgressTasks   , "inProgress") }
+        { this.getListBox("QA"            , qaTasks           , "qa") }
+        { this.getListBox("AT"            , atTasks           , "at") }
+        { this.getListBox("Done"          , doneTasks         , "done") }
 
       </div>
     );

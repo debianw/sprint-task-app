@@ -14,6 +14,16 @@ Dashboard = React.createClass({
    *
    */
 
+  changeType(id, type) {
+    Tasks.update(id, {
+      $set: {type: type}
+    });
+  },
+
+  /**
+   *
+   */
+
   deleteTask(id) {
     Tasks.remove(id);
   },
@@ -67,6 +77,7 @@ Dashboard = React.createClass({
         </header>
 
         <TaskListing
+          changeType={this.changeType}
           deleteTask={this.deleteTask}
           todoTasks={todoTasks}
           inProgressTasks={inProgressTasks}
