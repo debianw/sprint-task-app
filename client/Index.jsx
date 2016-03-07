@@ -2,6 +2,10 @@ Tasks = new Mongo.Collection("tasks");
 
 Meteor.subscribe("tasks");
 
+Accounts.ui.config({
+  passwordSignupFields: "USERNAME_ONLY"
+});
+
 /**
  *
  */

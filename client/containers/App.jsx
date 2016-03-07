@@ -6,7 +6,10 @@ App = React.createClass({
 
   render() {
     return (
-      <Dashboard />
+      <div>
+        <Nav />
+        <Dashboard />
+      </div>
     );
   }
 

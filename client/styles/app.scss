@@ -14,6 +14,13 @@ li {
     padding: 0 30px;
     box-shadow: 3px 3px #c7c7c7;
 
+    &.complete {
+      .text {
+        text-decoration: line-through;
+        color: #ccc;
+      }
+    }
+
     .item {
       padding: 10px 5px;
       border-bottom: 1px solid #ccc;
@@ -24,6 +31,8 @@ li {
         text-overflow: ellipsis;
       }
     }
+
+
   }
 
   @media (min-width: 768px) {

@@ -67,10 +67,11 @@ TaskListing = React.createClass({
 
   getListBox(title, items, key) {
     const { deleteTask } = this.props;
+    const clsBox = 'done' === key ? 'box complete' : 'box';
 
     return (
       <div ref={(ref) => this[key] = ref } className="col-xs-6 col-sm-2 droppable">
-        <div className="box">
+        <div className={clsBox}>
           <h4>{title}</h4>
           <ul>
             {items.map(task => {

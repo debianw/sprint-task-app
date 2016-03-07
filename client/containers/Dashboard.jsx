@@ -15,9 +15,7 @@ Dashboard = React.createClass({
    */
 
   changeType(id, type) {
-    Tasks.update(id, {
-      $set: {type: type}
-    });
+    Meteor.call("changeType", id, type);
   },
 
   /**
@@ -25,7 +23,7 @@ Dashboard = React.createClass({
    */
 
   deleteTask(id) {
-    Tasks.remove(id);
+    Meteor.call("removeTask", id);
   },
 
   /**
@@ -33,11 +31,7 @@ Dashboard = React.createClass({
    */
 
   addTask(text) {
-    Tasks.insert({
-      text      : text,
-      createdAt : new Date(),
-      type      : 'pending'
-    });
+    Meteor.call("addTask", text);
   },
 
   /**
@@ -52,7 +46,8 @@ Dashboard = React.createClass({
       inProgressTasks : Tasks.find({type: 'in-progress'}, sort).fetch(),
       qaTasks         : Tasks.find({type: 'qa'}, sort).fetch(),
       atTasks         : Tasks.find({type: 'at'}, sort).fetch(),
-      doneTasks       : Tasks.find({type: 'done'}, sort).fetch()
+      doneTasks       : Tasks.find({type: 'done'}, sort).fetch(),
+      currentUser     : Meteor.user()
     }
   },
 
@@ -61,7 +56,9 @@ Dashboard = React.createClass({
    */
 
   render() {
-    const { todoTasks, inProgressTasks, qaTasks, atTasks, doneTasks } = this.data;
+    const { todoTasks, inProgressTasks, qaTasks, atTasks, doneTasks, currentUser } = this.data;
+
+    if (!currentUser) return <Home />
 
     return (
       <div className="dashboard">
