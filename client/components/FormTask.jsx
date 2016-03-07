@@ -15,8 +15,10 @@ FormTask = React.createClass({
     const input = ReactDOM.findDOMNode(this.refs.newtask);
     const value = input.value.trim();
 
-    onSubmit(value);
     input.value = "";
+    if ("" === value) return;
+
+    onSubmit(value);
   },
 
   /**

@@ -14,8 +14,20 @@ Dashboard = React.createClass({
    *
    */
 
+  deleteTask(id) {
+    Tasks.remove(id);
+  },
+
+  /**
+   *
+   */
+
   addTask(text) {
-    console.log('add new task => ', text);
+    Tasks.insert({
+      text      : text,
+      createdAt : new Date(),
+      type      : 'pending'
+    });
   },
 
   /**
@@ -23,12 +35,14 @@ Dashboard = React.createClass({
    */
 
   getMeteorData() {
+    const sort = { sort: {createdAt: -1} };
+
     return {
-      todoTasks       : Tasks.find({type: 'pending'}).fetch(),
-      inProgressTasks : Tasks.find({type: 'in-progress'}).fetch(),
-      qaTasks         : Tasks.find({type: 'qa'}).fetch(),
-      atTasks         : Tasks.find({type: 'at'}).fetch(),
-      doneTasks       : Tasks.find({type: 'done'}).fetch()
+      todoTasks       : Tasks.find({type: 'pending'}, sort).fetch(),
+      inProgressTasks : Tasks.find({type: 'in-progress'}, sort).fetch(),
+      qaTasks         : Tasks.find({type: 'qa'}, sort).fetch(),
+      atTasks         : Tasks.find({type: 'at'}, sort).fetch(),
+      doneTasks       : Tasks.find({type: 'done'}, sort).fetch()
     }
   },
 
@@ -38,12 +52,6 @@ Dashboard = React.createClass({
 
   render() {
     const { todoTasks, inProgressTasks, qaTasks, atTasks, doneTasks } = this.data;
-
-    console.log('todoTasks => ', todoTasks);
-    console.log('inProgressTasks => ', inProgressTasks);
-    console.log('qaTasks => ', qaTasks);
-    console.log('atTasks => ', atTasks);
-    console.log('doneTasks => ', doneTasks);
 
     return (
       <div className="dashboard">
@@ -59,6 +67,7 @@ Dashboard = React.createClass({
         </header>
 
         <TaskListing
+          deleteTask={this.deleteTask}
           todoTasks={todoTasks}
           inProgressTasks={inProgressTasks}
           qaTasks={qaTasks}

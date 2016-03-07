@@ -13,6 +13,17 @@ li {
     background: #fff;
     padding: 0 30px;
     box-shadow: 3px 3px #c7c7c7;
+
+    .item {
+      padding: 10px 5px;
+      border-bottom: 1px solid #ccc;
+
+      .text {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
   }
 
   @media (min-width: 768px) {
